@@ -288,6 +288,20 @@
 
 
 
+document.querySelector("#quoteForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const res = await fetch("zoho-lead-api.php", { method: "POST", body: formData });
+  const result = await res.text();
+  if (result === "success") {
+    alert("Thank you! Your request has been submitted.");
+    e.target.reset();
+  } else {
+    alert("Something went wrong. Please try again.");
+  }
+});
+
+
 
 document.querySelector("#quoteForm").addEventListener("submit", async (e) => {
   e.preventDefault();
