@@ -9308,6 +9308,32 @@ textarea.form-control {
 
 
 
+/* Box sizing */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Prevent horizontal overflow caused by padding with 100% widths */
+html, body { margin: 0; padding: 0; }
+
+/* Make images and iframes responsive */
+img, picture, svg, iframe { max-width: 100%; height: auto; display: block; }
+
+/* Make videos adapt */
+video { max-width: 100%; height: auto; }
+
+/* Prevent text from being ridiculously large on small screens:
+   use relative font sizes and let media queries adjust. */
+html { font-size: 16px; } /* desktop baseline */
+body { line-height: 1.4; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+/* Responsive container: full width on small screens */
+.container {
+  width: 100%;
+  max-width: 1200px; /* adjust */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 
 
