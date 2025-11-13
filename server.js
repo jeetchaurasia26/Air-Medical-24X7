@@ -15,7 +15,7 @@ const ZOHO_API_BASE = process.env.ZOHO_API_BASE || 'https://www.zohoapis.com'; /
 const ZOHO_MODULE = process.env.ZOHO_MODULE || 'Leads'; // default Leads
 
 if (!ZOHO_TOKEN) {
-  console.error('Z O H O access token not found in environment (ZOHO_ACCESS_TOKEN). Exiting.');
+  console.error('1000.dac508c77aa6839d6a8191d51004620a.1a4b6e38fdb0aac4f707bb733de26a54');
   process.exit(1);
 }
 
