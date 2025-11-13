@@ -110,6 +110,264 @@
     <!-- END nav -->
 
 
+    <!-- Air Medical 24x7 Chatbot (Frontend) -->
+<div id="chatbot-container" class="chatbot-container" aria-live="polite">
+  <div class="chat-header">
+    <img src="your-logo.png" alt="Air Medical 24x7" class="bot-logo">
+    <span class="bot-title">Air Medical 24x7 Bot</span>
+    <button class="close-btn" onclick="toggleChat()" aria-label="Close chat">×</button>
+  </div>
+
+  <div class="chat-body" id="chat-body" role="log">
+    <div class="bot-message">Hi, Welcome to Air Medical 24x7!</div>
+    <div class="bot-message">Kindly let us know the type of service you would like to take from us.</div>
+    <div class="bot-message">Select the service from the below listed:</div>
+    <div class="options" id="service-options">
+      <button class="option-btn" onclick="startService('Air Ambulance')">Air Ambulance</button>
+      <button class="option-btn" onclick="startService('Commercial Airlines')">Commercial Airlines</button>
+      <button class="option-btn" onclick="startService('Medical Escort')">Medical Escort</button>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <button class="restart-btn" onclick="restartChat()">START A NEW CONVERSATION</button>
+  </div>
+</div>
+
+<div id="chat-icon" class="chat-icon" onclick="toggleChat()" aria-hidden="false">💬</div>
+
+<style>
+/* minimal styles (same blue theme) */
+.chatbot-container{position:fixed;bottom:20px;right:20px;width:340px;max-height:520px;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);display:none;flex-direction:column;overflow:hidden;z-index:99999;font-family:Arial,Helvetica,sans-serif}
+.chat-header{background:#007bff;color:#fff;display:flex;align-items:center;padding:10px;gap:10px}
+.bot-logo{height:28px;width:28px;border-radius:50%;background:#fff}
+.bot-title{font-weight:600}
+.close-btn{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
+.chat-body{padding:12px;overflow-y:auto;flex:1}
+.bot-message{background:#e7f1ff;color:#000;padding:8px 12px;border-radius:10px;margin:6px 0;display:inline-block;font-size:14px}
+.user-message{text-align:right}
+.user-bubble{background:#007bff;color:#fff;padding:8px 12px;border-radius:10px;display:inline-block;margin:6px 0}
+.options{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.option-btn{background:#007bff;color:#fff;border:0;border-radius:20px;padding:8px 12px;cursor:pointer}
+.option-btn:hover{background:#0056b3}
+.input-inline{width:100%;margin-top:8px}
+#chat-input{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc}
+.chat-footer{text-align:center;border-top:1px solid #eee;padding:8px}
+.restart-btn{background:#007bff;color:#fff;border:0;border-radius:20px;padding:8px 12px;cursor:pointer}
+.chat-icon{position:fixed;bottom:20px;right:20px;background:#007bff;color:#fff;border-radius:50%;padding:14px;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:99998}
+a.contact-link{color:#007bff;font-weight:600;text-decoration:none}
+</style>
+
+<script>
+/* --- Configuration --- */
+const BACKEND_URL = 'https://YOUR_BACKEND_URL/api/lead'; // <- update with your EC2 domain
+const WHATSAPP_NUMBER = '+971565542001';
+const SUPPORT_EMAIL = 'info@airmedical24x7.com';
+/* --------------------- */
+
+let userData = { service: '', from: '', destination: '', name: '', phone: '' };
+let currentStep = -1; // -1 before service chosen
+const steps = ['From', 'Destination', 'Your Name', 'Your Number'];
+
+function toggleChat() {
+  const chat = document.getElementById('chatbot-container');
+  const icon = document.getElementById('chat-icon');
+  if (getComputedStyle(chat).display === 'flex') {
+    chat.style.display = 'none'; icon.style.display = 'block';
+  } else {
+    chat.style.display = 'flex'; icon.style.display = 'none';
+  }
+}
+
+function appendBotMessage(html) {
+  const chatBody = document.getElementById('chat-body');
+  const div = document.createElement('div');
+  div.className = 'bot-message';
+  div.innerHTML = html;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function appendUserMessage(text) {
+  const chatBody = document.getElementById('chat-body');
+  const div = document.createElement('div');
+  div.className = 'user-message';
+  div.innerHTML = '<div class="user-bubble">' + escapeHtml(text) + '</div>';
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+/* Step control */
+function startService(service) {
+  userData.service = service;
+  appendUserMessage(service);
+  setTimeout(() => {
+    appendBotMessage(`Great! You selected <strong>${service}</strong>.`);
+    currentStep = 0;
+    askStep();
+  }, 700);
+}
+
+/* Ask current step */
+function askStep() {
+  if (currentStep < 0 || currentStep >= steps.length) {
+    finishFlow();
+    return;
+  }
+  const stepText = steps[currentStep];
+  setTimeout(() => appendBotMessage(stepText + '?'), 500);
+  // input
+  addInputForStep(stepText);
+}
+
+/* Create the input element for the step and attach validation */
+function addInputForStep(step) {
+  // Remove any existing input
+  const old = document.getElementById('chat-input');
+  if (old) old.remove();
+
+  const chatBody = document.getElementById('chat-body');
+  const input = document.createElement('input');
+  input.id = 'chat-input';
+  input.className = 'input-inline';
+  input.placeholder = 'Type your answer and press Enter...';
+  input.autocomplete = 'off';
+  chatBody.appendChild(input);
+  input.focus();
+
+  // For phone step, show prefix (auto detect)
+  if (step === 'Your Number') {
+    // fetch calling code and prefix input value
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(data => {
+        if (data && data.country_calling_code) {
+          input.value = data.country_calling_code + ' ';
+        } else {
+          input.value = '+971 ';
+        }
+      })
+      .catch(()=> { input.value = '+971 '; });
+  }
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const val = input.value.trim();
+      if (!validateStep(step, val)) {
+        // invalid -> show small error message
+        appendBotMessage(`<span style="color:#c00;font-weight:600">Please enter a valid ${step}.</span>`);
+        return;
+      }
+      // accept & store
+      input.remove();
+      handleAnswer(step, val);
+    }
+  });
+}
+
+/* Validation rules */
+function validateStep(step, val) {
+  if (!val || val.length < 2) return false;
+  if (step === 'From' || step === 'Destination') {
+    // require only letters, spaces, commas, dots, hyphens; min 3 chars
+    return /^[A-Za-z .,'-]{3,}$/.test(val);
+  }
+  if (step === 'Your Name') {
+    return /^[A-Za-z ]{2,}$/.test(val);
+  }
+  if (step === 'Your Number') {
+    // allow optional +, spaces and digits; require at least 7 digits total
+    const digits = val.replace(/\D/g,'');
+    return /^\+?[0-9 ()-]{7,}$/.test(val) && digits.length >= 7 && digits.length <= 15;
+  }
+  return true;
+}
+
+function handleAnswer(step, val) {
+  appendUserMessage(val);
+  if (step === 'From') userData.from = val;
+  else if (step === 'Destination') userData.destination = val;
+  else if (step === 'Your Name') userData.name = val;
+  else if (step === 'Your Number') userData.phone = val.replace(/\s+/g,' ');
+  currentStep++;
+  if (currentStep < steps.length) askStep();
+  else finishFlow();
+}
+
+/* Finalize: show thanks and send to backend */
+function finishFlow() {
+  appendBotMessage("Thanks for contacting Air Medical 24x7! We got your request and our team will contact you shortly.");
+  const contactHtml = `In the meantime, you can reach us on
+    <a class="contact-link" href="https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g,'')}" target="_blank" rel="noopener">WhatsApp</a> /
+    <a class="contact-link" href="tel:${WHATSAPP_NUMBER.replace(/\s/g,'')}" >Call ${WHATSAPP_NUMBER}</a> or
+    <a class="contact-link" href="mailto:${SUPPORT_EMAIL}">Email us</a>.`;
+  appendBotMessage(contactHtml);
+
+  // send to backend
+  sendToBackend();
+}
+
+/* Send collected data to backend */
+function sendToBackend() {
+  const payload = {
+    service: userData.service,
+    from: userData.from,
+    destination: userData.destination,
+    name: userData.name,
+    phone: userData.phone,
+    source: 'Chatbot Lead'
+  };
+  fetch(BACKEND_URL, {
+    method:'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(resp => resp.json())
+  .then(data => {
+    if (data && data.success) {
+      appendBotMessage('<small style="color:green">Your request was submitted successfully.</small>');
+    } else {
+      appendBotMessage('<small style="color:#c00">There was an error submitting your request. Our team will still try to contact you.</small>');
+    }
+  })
+  .catch(err => {
+    appendBotMessage('<small style="color:#c00">Unable to submit (network). Please contact via WhatsApp or Call.</small>');
+  });
+
+  // reset stored values for future chats if needed
+  userData = { service:'', from:'', destination:'', name:'', phone:'' };
+  currentStep = -1;
+}
+
+/* utility */
+function restartChat(){
+  document.getElementById('chat-body').innerHTML = `
+    <div class="bot-message">Hi, Welcome to Air Medical 24x7!</div>
+    <div class="bot-message">Kindly let us know the type of service you would like to take from us.</div>
+    <div class="bot-message">Select the service from the below listed:</div>
+    <div class="options" id="service-options">
+      <button class="option-btn" onclick="startService('Air Ambulance')">Air Ambulance</button>
+      <button class="option-btn" onclick="startService('Commercial Airlines')">Commercial Airlines</button>
+      <button class="option-btn" onclick="startService('Medical Escort')">Medical Escort</button>
+    </div>`;
+  userData = { service:'', from:'', destination:'', name:'', phone:'' };
+  currentStep = -1;
+  document.getElementById('chat-icon').style.display = 'block';
+  document.getElementById('chatbot-container').style.display = 'none';
+}
+
+function escapeHtml(unsafe) { return unsafe.replace(/[&<"'>]/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m];}); }
+
+/* auto open after 3 seconds */
+window.addEventListener('load', ()=> {
+  setTimeout(()=> {
+    document.getElementById('chatbot-container').style.display = 'flex';
+    document.getElementById('chat-icon').style.display = 'none';
+  }, 3000);
+});
+</script>
+
+
    <!-- Floating Call & WhatsApp Buttons -->
 <div class="floating-buttons">
   <a href="tel:+971565542001" class="float-btn call-btn" title="Call Now">

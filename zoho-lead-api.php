@@ -6,9 +6,9 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
 // 🔐 Your Zoho OAuth credentials
-$client_id = "1000.B4CUC3L3MG607IRBS8VSP5A1H52XFU";
-$client_secret = "62284c7dc2c3abe8a6ec7f3bb2dd77b18c422c6a12";
-$refresh_token = "1000.6ed971f89d4866366447a425135d5785.e08c9319599ed015f35154803ed67b1a";
+$client_id = "YOur";
+$client_secret = "Your";
+$refresh_token = "Your";
 
 // 1️⃣ Get access token
 $token_url = "https://accounts.zoho.in/oauth/v2/token?refresh_token={$refresh_token}&client_id={$client_id}&client_secret={$client_secret}&grant_type=refresh_token";
