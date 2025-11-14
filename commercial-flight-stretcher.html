@@ -990,6 +990,33 @@ ul.check-list li::before {
 </script>
 
 
+<style>
+
+    /* ONLY apply these changes for mobile devices */
+@media (max-width: 767px) {
+  html, body {
+    width: 100%;
+    min-width: auto !important;
+    overflow-x: hidden !important;
+    font-size: 16px !important;
+  }
+  .container, .row, .col, .services-wrap, .card, .hero-wrap, .slider-text, .features, .ftco-section, .ftco-section-2 {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+  }
+  /* ... other styles from your patch follow here ... */
+}
+
+/* Avoid applying these globally if possible */
+html, body {
+  overflow-x: hidden; /* safe to keep globally to prevent horizontal scroll everywhere */
+}
+  </style>
 
 
 
