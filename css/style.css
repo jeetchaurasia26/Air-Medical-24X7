@@ -9247,7 +9247,7 @@ textarea.form-control {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px;
+  gap: 20px;
 }
 
 .bullets {
@@ -9553,6 +9553,9 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
 
 
 
+
+
+
 /* ===== Responsive fixes for ftco-counter / intro blocks ===== */
 
 /* Make block interior more compact by default */
@@ -9689,13 +9692,13 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
 
 
 /* ===== Mobile navbar: force light background + black links ===== */
-@media (max-width: 991.98px) {
+@media (max-width: 991.100px) {
   /* Make the navbar background white so black links are visible */
   .ftco-navbar-light {
     background: #fff !important;
     top: 0;
     position: relative;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.06);
     z-index: 2000;
   }
 
@@ -9711,6 +9714,7 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
     color: #000 !important;          /* text color (if MENU is text) */
     border-color: rgba(0,0,0,0.12) !important;
   }
+
 
   /* If the template uses an icon background image for the toggler, make it dark using filter */
   .ftco-navbar-light .navbar-toggler .oi,
@@ -9826,38 +9830,6 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
   /* Add a small page-bottom padding to avoid buttons overlapping last content */
   body {
     padding-bottom: 100px !important;
-  }
-}
-
-
-/* ===== MOBILE FIX FOR GALLERY ===== */
-@media (max-width: 767.98px) {
-
-  .ftco-gallery .d-md-flex {
-    display: flex !important;
-    flex-wrap: wrap !important;
-  }
-
-  /* Make each gallery box 50% width instead of full width */
-  .ftco-gallery .img {
-    width: 50% !important;
-    height: 140px !important; /* Adjust height for good look */
-    background-size: cover !important;
-    background-position: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Remove giant overlay icon size */
-  .ftco-gallery .icon span {
-    font-size: 24px !important;
-  }
-
-  /* Make the black hover overlay thinner */
-  .ftco-gallery .icon {
-    background: rgba(0,0,0,0.45) !important;
-    width: 100% !important;
-    height: 100% !important;
   }
 }
 
@@ -10011,4 +9983,38 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
 
   /* Make sure alignment doesn't force large height */
   .align-self-stretch { align-self: flex-start !important; }
+}
+
+
+
+
+
+
+
+
+
+/* Make navbar menu text black, bold, and BIGGER */
+#ftco-nav .nav-link,
+#ftco-nav .dropdown-item {
+    color: #000 !important;          /* Black text */
+    font-weight: 600 !important;     /* Slight bold */
+    font-size: 18px !important;      /* BIGGER menu text */
+    letter-spacing: 0.3px;           /* Cleaner spacing */
+    padding-top: 10px !important;    /* More height */
+    padding-bottom: 10px !important;
+}
+
+/* Hover color */
+#ftco-nav .nav-link:hover,
+#ftco-nav .dropdown-item:hover {
+    color: #004aad !important;       /* Blue hover */
+}
+
+
+@media (max-width: 991.98px) {
+    #ftco-nav .nav-link,
+    #ftco-nav .dropdown-item {
+        font-size: 17px !important;  /* slightly smaller than desktop */
+        padding: 12px 0 !important;  /* taller click area */
+    }
 }
