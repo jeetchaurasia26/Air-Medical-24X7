@@ -684,13 +684,13 @@ window.addEventListener('load', ()=> {
 	    					<div class="cause-entry">
 		    					<a href="#" class="img" style="background-image: url(images/am_3.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
-		    						<h3><a href="#">Medical Tourism</h3>
+		    						<h3>Medical Tourism</h3>
 		    						<p>Medical Tourism and Patient Transfer
                         Air Medical 24x7 supports global medical tourism through safe and seamless air ambulance and medical evacuation services. 
                         Whether you need international medevac, medical escort, or commercial stretcher flights, we provide end-to-end coordination with hospitals, doctors, and families. 
                         Our 24×7 service ensures affordable, fast, and reliable medical transport for patients seeking treatment abroad.</p>
 
-		    						<a href="/medical-tourism" class="read-more">Read More</a>
+		    						<a href="/custom-medical-packages.html" class="read-more">Read More</a>
 		                <div class="progress custom-progress-success">
 		                  <div class="progress-bar bg-primary" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
 		                </div>
@@ -802,6 +802,7 @@ window.addEventListener('load', ()=> {
 
 <!-- Animation + Hover Styles -->
 <style>
+
   /* Sequential fade/slide-in animation */
   .process-step {
     opacity: 0;
@@ -832,6 +833,29 @@ window.addEventListener('load', ()=> {
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
   }
+
+  /* ✅ MOBILE FIX — FORCE 2 BOXES PER ROW */
+  @media (max-width: 576px) {
+    .process-step {
+      width: 50% !important;  /* 2 per row */
+      float: left;
+      padding: 10px 5px;
+      text-align: center;
+    }
+
+    .process-step img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+
+    .process-step p {
+      font-size: 12px;
+      line-height: 16px;
+      margin-top: 6px;
+    }
+  }
+
 </style>
 
 <!-- Sequential Animation Script -->
