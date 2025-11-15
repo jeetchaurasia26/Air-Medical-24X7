@@ -9356,3 +9356,80 @@ body { line-height: 1.4; font-family: system-ui, -apple-system, "Segoe UI", Robo
   /* ... other styles from your patch follow here ... */
 }
 
+
+
+
+
+/* --- Mobile & overflow fixes --- */ 
+/* 1) Prevent accidental horizontal scrolling (guard) */ 
+html, body { 
+max-width: 100%; 
+overflow-x: hidden; /* safe guard to hide accidental side overflow */ 
+} 
+/* 2) Make base font-size responsive (smaller on phones) */ 
+html { font-size: 16px; } /* keep desktop baseline */ 
+@media (max-width: 767.98px) { 
+html { font-size: 14px; } /* reduce text scale on small screens */ 
+body { line-height: 1.45; } /* a little more breathing room */ 
+.container { padding-left: 12px; padding-right: 12px; } /* reduce 
+container padding */ 
+} 
+/* 3) Fix services section that creates huge right-side overflow */ 
+@media (max-width: 991.98px) { 
+/* remove the oversized pseudo-element and big hover shift on small 
+screens */ 
+.services-wrap { 
+padding: 18px 14px;            
+/* reduce padding for small screens */ 
+margin-left: 0 !important; 
+margin-right: 0 !important; -webkit-tap-highlight-color: transparent; -webkit-overflow-scrolling: touch; /* smoother scrolling on iOS */ 
+} 
+.services-wrap:after { display: none !important; } 
+.services-wrap:hover { margin-left: 0 !important; transform: none 
+!important; } 
+/* if you have items that depended on hover to reveal content, 
+use a simple stacked layout on mobile instead */ 
+.services-wrap .icon { left: 10px; } /* adjust icon positioning */ 
+} 
+/* 4) Ensure images and iframes are responsive (double-check) */ 
+img, picture, svg, iframe, video { 
+max-width: 100%; 
+height: auto; 
+display: block; 
+} 
+/* 5) If some inner block is swallowing touch/scroll (safe fallback) 
+allow vertical scrolling where needed */ 
+@media (max-width: 991.98px) { 
+.ftco-section-2, .services-wrap, .container { 
+overflow-x: hidden; -webkit-overflow-scrolling: touch; 
+} 
+} 
+
+
+
+
+/* Fix Hero Banner Height on Mobile */
+@media (max-width: 576px) {
+
+  .slider-text {
+    min-height: 55vh !important;   /* reduce height */
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .slider-text h1 {
+    font-size: 26px !important;
+    line-height: 32px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .slider-text p {
+    font-size: 14px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .slider-text .btn {
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+  }
+}
