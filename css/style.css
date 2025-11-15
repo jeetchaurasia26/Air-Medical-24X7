@@ -9459,3 +9459,229 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
 .carousel-cause * {
   pointer-events: auto;
 }
+
+
+
+
+/* -------------------------
+   HERO: make text black + readable
+   ------------------------- */
+
+/* Make overlay lighter so black text reads well */
+.hero-wrap .overlay {
+  background: rgba(255,255,255,0.65) !important; /* light veil */
+  z-index: 1 !important;
+}
+
+/* Ensure slider text is above the overlay */
+.hero-wrap .slider-text,
+.hero-wrap .slider-text .col-md-7,
+.hero-wrap .container .row.slider-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Force hero text to black and slightly bolder */
+.hero-wrap .col-md-7 h1,
+.hero-wrap .col-md-7 .breadcrumbs,
+.hero-wrap .col-md-7 p,
+.hero-wrap .col-md-7 .bread {
+  color: #000 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important; /* remove any white shadow */
+}
+
+/* If breadcrumbs use smaller color */
+.hero-wrap .breadcrumbs a,
+.hero-wrap .breadcrumbs span {
+  color: rgba(0,0,0,0.85) !important;
+}
+
+/* Buttons inside hero — keep visible (adjust if you want different colors) */
+.hero-wrap a.btn {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* ---------- Responsive height & spacing ---------- */
+
+/* Default hero height (desktop/tablet) */
+.hero-wrap {
+  min-height: 520px;            /* reduce if you want shorter on desktop */
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;         /* vertically center content */
+}
+
+/* Column centering fix (so text isn't pushed down by translateY) */
+.hero-wrap .col-md-7 {
+  transform: none !important;  /* neutralize any JS translateY if it causes spacing issues */
+}
+
+/* Mobile: make hero much shorter and text smaller */
+@media (max-width: 767.98px) {
+  .hero-wrap {
+    min-height: 320px !important;   /* compact hero for phones */
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .hero-wrap .col-md-7 h1 {
+    font-size: 26px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 8px !important;
+  }
+  .hero-wrap .col-md-7 p {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+  /* reduce any large vertical translate applied by Scrollax JS */
+  .hero-wrap [data-scrollax] { transform: translateY(0) !important; }
+}
+
+/* Small tablets */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-wrap {
+    min-height: 420px;
+  }
+  .hero-wrap .col-md-7 h1 { font-size: 36px; }
+}
+
+/* If you want the hero text to have a light translucent panel behind it instead of changing overlay:
+   .hero-wrap .col-md-7 { background: rgba(255,255,255,0.5); padding: 12px; border-radius: 8px; } 
+   (Use that only if you prefer a “chip” behind text)
+*/
+
+
+
+/* ===== Responsive fixes for ftco-counter / intro blocks ===== */
+
+/* Make block interior more compact by default */
+.ftco-counter .block-18 {
+  padding: 28px 26px;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* Number (large counter) — keep visible but smaller on mobile */
+.ftco-counter .block-18 .number {
+  display: block;
+  font-size: 56px;       /* desktop size */
+  line-height: 1;
+  font-weight: 600;
+  margin: 8px 0 10px;
+}
+
+/* Intro headings & paragraph */
+.ftco-counter .block-18 .text > span,
+.ftco-counter .block-18 .text h3 {
+  font-weight: 600;
+  color: #000;
+}
+.ftco-counter .block-18 .text p {
+  margin: 8px 0 0;
+  color: #333;
+}
+
+/* Reduce vertical spacing between columns */
+.ftco-counter .row.no-gutters {
+  margin-left: 0;
+  margin-right: 0;
+}
+.ftco-counter .counter-wrap {
+  padding: 8px 6px;  /* small gutter so boxes don't touch */
+}
+
+/* Ensure blocks don't force large min-height */
+.ftco-counter .block-18 {
+  min-height: 0;
+}
+
+/* ---------- Mobile specific (phones) ---------- */
+@media (max-width: 767.98px) {
+
+  /* Make whole section stack tightly */
+  .ftco-counter .counter-wrap {
+    padding: 6px 0;
+  }
+
+  /* Reduce big counter size strongly */
+  .ftco-counter .block-18 .number {
+    font-size: 34px !important;
+    margin: 6px 0 8px;
+  }
+
+  /* Reduce headings and paragraph sizes */
+  .ftco-counter .block-18 .text > span,
+  .ftco-counter .block-18 .text h3 {
+    font-size: 16px !important;
+  }
+  .ftco-counter .block-18 .text p {
+    font-size: 13px !important;
+    margin-bottom: 6px;
+  }
+
+  /* Reduce padding inside the colored panels */
+  .ftco-counter .block-18 {
+    padding: 16px 14px !important;
+    border-radius: 4px;
+  }
+
+  /* Prevent overflow from long numbers/words */
+  .ftco-counter .block-18 .text {
+    word-break: break-word;
+  }
+
+  /* If there is any Scrollax / transform pushing content down on mobile, neutralize it */
+  .ftco-counter [data-scrollax],
+  .ftco-counter [data-scrollax-parent] {
+    transform: translateY(0) !important;
+  }
+}
+
+/* ---------- Small tablets (768-991px) ---------- */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .ftco-counter .block-18 .number {
+    font-size: 44px;
+  }
+  .ftco-counter .block-18 {
+    padding: 20px 18px;
+  }
+}
+
+/* ===== Floating call/whatsapp buttons: keep them off content and on top ===== */
+.floating-buttons {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 99999;      /* stay above everything */
+}
+
+/* small circular chat bubble if present */
+.floating-buttons .float-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 28px;
+  padding: 8px 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* if there is a circular chat icon */
+.floating-buttons .chat-bubble {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* on phones, nudge up a little so they don't overlap the section controls */
+@media (max-width: 767.98px) {
+  .floating-buttons { right: 12px; bottom: 12px; }
+  .floating-buttons .float-btn { padding: 8px 10px; font-size: 13px; }
+}
