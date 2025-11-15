@@ -9997,7 +9997,7 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
 #ftco-nav .nav-link,
 #ftco-nav .dropdown-item {
     color: #000 !important;          /* Black text */
-    font-weight: 600 !important;     /* Slight bold */
+    font-weight: 1000 !important;     /* Slight bold */
     font-size: 18px !important;      /* BIGGER menu text */
     letter-spacing: 0.3px;           /* Cleaner spacing */
     padding-top: 10px !important;    /* More height */
