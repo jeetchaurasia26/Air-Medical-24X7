@@ -123,16 +123,77 @@
     <!-- END nav -->
 
 
-<!-- Floating Call & WhatsApp Buttons -->
-<div class="floating-buttons">
-  <a href="tel:+971565542001" class="float-btn call-btn" title="Call Now">
-    <img src="images/phone.png" alt="Call" />
+<!-- Floating Contact Bar -->
+<div class="contact-floating-bar">
+  <a href="tel:+971565542001" class="contact-btn call-btn">
+    📞 Call: +971 56 554 2001
   </a>
-  <a href="https://wa.me/971565542001" target="_blank" class="float-btn whatsapp-btn" title="Chat on WhatsApp">
-    <img src="images/WhatsApp.webp" alt="WhatsApp" />
+
+  <a href="https://wa.me/971565542001" target="_blank" class="contact-btn whatsapp-btn">
+    💬 WhatsApp: +971 56 554 2001
   </a>
 </div>
-<!-- END Floating Call & WhatsApp Buttons -->
+
+
+<style>
+/* Floating Contact Bar */
+.contact-floating-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 12px;
+
+  z-index: 9999;
+}
+
+/* Buttons */
+.contact-btn {
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+  transition: 0.3s ease;
+  white-space: nowrap; /* prevents text wrapping */
+}
+
+.call-btn {
+  background: #007bff;
+}
+
+.whatsapp-btn {
+  background: #25D366;
+}
+
+.contact-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .contact-floating-bar {
+    bottom: 15px;
+    flex-direction: column; /* stack the buttons on mobile */
+    gap: 10px;
+  }
+
+  .contact-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+</style>
+<!-- END Floating Contact Bar -->
 
 
 <!-- Air Medical 24x7 Chatbot (Frontend) -->
