@@ -500,8 +500,12 @@ window.addEventListener('load', ()=> {
     <div class="row align-items-center">
       <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
         <div class="image-card hover-pop">
+<<<<<<< HEAD
           <img src="images/commercial-airlines.jpg
           " alt="Commercial Flight Stretcher Service" class="img-fluid rounded-3 shadow">
+=======
+          <img src="images/itaa-new.jpg" alt="Commercial Flight Stretcher Service" class="img-fluid rounded-3 shadow">
+>>>>>>> f5c98d244ee9495ef741416541df0bc25c81c121
         </div>
       </div>
       <div class="col-lg-6 aos-init aos-animate" data-aos="fade-left" data-aos-duration="1000">
@@ -516,6 +520,16 @@ window.addEventListener('load', ()=> {
     </div>
   </div>
 </section>
+
+<style>
+  .image-card img {
+    max-height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+</style>
 
 <!-- ======================= What Is It Section ======================= -->
 <section class="section-padding what-is-section">
@@ -990,6 +1004,33 @@ ul.check-list li::before {
 </script>
 
 
+<style>
+
+    /* ONLY apply these changes for mobile devices */
+@media (max-width: 767px) {
+  html, body {
+    width: 100%;
+    min-width: auto !important;
+    overflow-x: hidden !important;
+    font-size: 16px !important;
+  }
+  .container, .row, .col, .services-wrap, .card, .hero-wrap, .slider-text, .features, .ftco-section, .ftco-section-2 {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+  }
+  /* ... other styles from your patch follow here ... */
+}
+
+/* Avoid applying these globally if possible */
+html, body {
+  overflow-x: hidden; /* safe to keep globally to prevent horizontal scroll everywhere */
+}
+  </style>
 
 
 
