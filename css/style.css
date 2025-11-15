@@ -9685,3 +9685,51 @@ overflow-x: hidden; -webkit-overflow-scrolling: touch;
   .floating-buttons { right: 12px; bottom: 12px; }
   .floating-buttons .float-btn { padding: 8px 10px; font-size: 13px; }
 }
+
+
+
+/* ===== Mobile navbar: force light background + black links ===== */
+@media (max-width: 991.98px) {
+  /* Make the navbar background white so black links are visible */
+  .ftco-navbar-light {
+    background: #fff !important;
+    top: 0;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    z-index: 2000;
+  }
+
+  /* Brand (logo text) visible on white */
+  .ftco-navbar-light .navbar-brand {
+    color: #000 !important;
+  }
+
+  /* Navbar toggler (hamburger) and MENU text */
+  .ftco-navbar-light .navbar-toggler,
+  .ftco-navbar-light .navbar-toggler:focus,
+  .ftco-navbar-light .navbar-toggler:active {
+    color: #000 !important;          /* text color (if MENU is text) */
+    border-color: rgba(0,0,0,0.12) !important;
+  }
+
+  /* If the template uses an icon background image for the toggler, make it dark using filter */
+  .ftco-navbar-light .navbar-toggler .oi,
+  .ftco-navbar-light .navbar-toggler-icon {
+    filter: invert(0) !important;
+  }
+
+  /* Menu links — keep them black and slightly bolder on mobile too */
+  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+    color: #000 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Dropdown items */
+  .ftco-navbar-light .dropdown-menu {
+    background: #fff !important;
+  }
+  .ftco-navbar-light .dropdown-item {
+    color: #000 !important;
+    font-weight: 600 !important;
+  }
+}
