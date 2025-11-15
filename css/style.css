@@ -42,6 +42,7 @@
 
 html {
   font-family: sans-serif;
+  
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -9339,6 +9340,12 @@ body { line-height: 1.4; font-family: system-ui, -apple-system, "Segoe UI", Robo
 
 
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> f5c98d244ee9495ef741416541df0bc25c81c121
 /* ONLY apply these changes for mobile devices */
 @media (max-width: 767px) {
   html, body {
@@ -9361,6 +9368,10 @@ body { line-height: 1.4; font-family: system-ui, -apple-system, "Segoe UI", Robo
 
 /* Avoid applying these globally if possible */
 html, body {
+<<<<<<< HEAD
+  overflow-x: hidden; /* safe to keep globally to prevent horizontal scroll everywhere */
+}
+=======
   overflow-x: hidden; /* safe to keep globally to prevent horizontal scroll everywhere */
 }
 
@@ -9383,3 +9394,4 @@ html, body {
 
 
 
+>>>>>>> f5c98d244ee9495ef741416541df0bc25c81c121
